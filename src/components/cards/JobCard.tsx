@@ -2,8 +2,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
 import { Job } from "@/types";
-import { use } from "react";
-import client from "openai/index.js";
 
 interface JobCardProps {
   job: Job;
