@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
 import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
 import { Job } from "@/types";
+import { use } from "react";
+import client from "openai/index.js";
 
 interface JobCardProps {
   job: Job;
@@ -24,7 +26,10 @@ export default function JobCard({ job, index }: JobCardProps) {
             {job.title}
           </h3>
           {/* Decorative star icon with soft orange glow */}
-          <Star size={20} className="text-orange-300 dark:text-orange-400/80 fill-orange-50/50 dark:fill-orange-900/20 flex-shrink-0" />
+          <Star
+            size={20}
+            className="text-orange-300 dark:text-orange-400/80 fill-orange-50/50 dark:fill-orange-900/20 flex-shrink-0"
+          />
         </div>
 
         {/* Brand/Company name in signature Rose color */}
