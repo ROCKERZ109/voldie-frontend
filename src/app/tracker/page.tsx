@@ -19,6 +19,8 @@ import {
   TextAlignLeft,
   Checks,
   Trash,
+  LinkedinLogo,
+  UserCircle,
 } from "@phosphor-icons/react";
 
 type JobStatus = "Saved" | "Applied" | "Interviewing" | "Hired" | "Rejected";
@@ -31,6 +33,7 @@ interface TrackedJob {
   tech_stack: string[];
   vibe: string;
   status: JobStatus;
+  hiring_manager?: string;
 }
 
 const COLUMNS: {
@@ -477,6 +480,41 @@ export default function TrackerPage() {
                       <p className="text-sm text-gray-600 dark:text-slate-400 italic mb-6 line-clamp-2 leading-relaxed">
                         "{job.vibe}"
                       </p>
+                      {job.hiring_manager && (
+                        <a
+                          // Dynamic LinkedIn Search URL: Name + Company
+                          href={`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(job.hiring_manager + " " + job.company)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-blue-50/50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/40 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all duration-300 w-fit relative overflow-hidden"
+                          title="Search Hiring Manager on LinkedIn"
+                        >
+                          {/* Animated Background Hover Effect */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/10 to-blue-400/0 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+
+                          {/* Avatar Icon */}
+                          <div className="flex items-center justify-center text-blue-500 dark:text-blue-400 group-hover:scale-110 transition-transform">
+                            <UserCircle size={18} weight="duotone" />
+                          </div>
+
+                          {/* Text Logic */}
+                          <span className="text-xs font-semibold text-blue-700 dark:text-blue-300 flex items-center gap-1.5 z-10">
+                            <span className="text-blue-500/70 dark:text-blue-400/60 font-normal">
+                              HM:
+                            </span>
+                            <span className="group-hover:underline decoration-blue-300 underline-offset-2">
+                              {job.hiring_manager}
+                            </span>
+
+                            {/* LinkedIn Icon appears on hover to hint at the action */}
+                            <LinkedinLogo
+                              size={14}
+                              weight="fill"
+                              className="opacity-0 group-hover:opacity-100 -ml-1 transition-all duration-300 text-[#0A66C2] dark:text-[#70B5F9] group-hover:translate-x-1"
+                            />
+                          </span>
+                        </a>
+                      )}
 
                       {/* THE NEW STATUS DOCK (Instead of big buttons) */}
                       <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-gray-100 dark:border-slate-800/50">
